@@ -153,20 +153,28 @@ function calculate(){
             currentInput = currentInput ** 6
         }
         else if(current_Operant==="∆"){
-            lista+= Number(currentInput)
+            lista.push(Number(currentInput))
             d += 1
             currentInput = ""
             display.textContent = currentInput;
 
             if(d === 3){
-                x1= (-lista[1]+Math.sqrt(lista[1]*lista[1]-4*lista[0]*lista[2]))/2*lista[0]
-                x2= (-lista[1]+Math.sqrt(lista[1]*lista[1]-4*lista[0]*lista[2]))/2*lista[0]
-                currentInput = x1, x2
+                let a = lista[0]
+                let b = lista[1]
+                let c = lista[2]
+
+                let delta = b*b - 4*a*c
+
+                let x1 = (-b + Math.sqrt(delta)) / (2*a)
+                let x2 = (-b - Math.sqrt(delta)) / (2*a)
+
+                currentInput = x1 + ", " + x2
+
                 d = 0
                 lista.length = 0
                 display.textContent = currentInput
+                }
             }
-        }
         else if(current_Operant==="4/"){
             media += Number(currentInput)   // converte para número
             c += 1
