@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: blueviolet;
+            margin: 0;
+        }
+        .calculadora{
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            justify-content: center;
+            text-align: center;
+            width: 400px;
+            height: 600px;
+            background-color: black;
+            border-radius: 20px;
+        }
+        .tela{
+            background-color: #222;
+            font-size: 40px;
+            color: white;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            min-height: 50px;
+            padding: 20px;
+            text-align: right;
+            align-items: right;
+        
+        }
+        .buttons{
+            display: grid;
+            grid-template-columns: repeat(4, 1fr) ;
+            gap:10px;
+            top: 10%;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 900;
+        }
+        button{
+            width: 4.7rem;
+            height: 4.7rem;
+            border: none;
+        
+            justify-items: center;
+            text-align: center ;
+            padding: 20px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            border-radius: 100%;
+        }
+        .grey{
+            background-color: #707070;
+            color: aliceblue;
+        }
+        .submit{
+            background-color: rgb(0, 110, 255);
+            color: aliceblue;
+        }
+        .orange{
+            background-color: rgb(28, 65, 168);
+            color: aliceblue;
+            font-size: 11px;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="calculadora">
+            <div class="tela" id="display"></div>
+            <div class="buttons">
+                <button class="grey" onclick="appendNumber('1')">1</button>
+                <button class="grey"onclick="appendNumber('2')">2</button>
+                <button class="grey"onclick="appendNumber('3')">3</button>
+                <button class="grey"onclick="appendNumber('4')">4</button>
+                <button class="grey"onclick="appendNumber('5')">5</button>
+                <button class="grey"onclick="appendNumber('6')">6</button>
+                <button class="grey"onclick="appendNumber('7')">7</button>
+                <button class="grey"onclick="appendNumber('8')">8</button>
+                <button class="grey "onclick="appendNumber('9')">9</button>
+                <button class="grey"onclick="appendNumber('0')">0</button>
+                <button class="submit"onclick="calculate()">=</button>
+                <button class="limpar"onclick="letdisplay()">C</button>
+                <button class="orange" onclick="appendOperador('2x')">Dobro</button>
+                <button class="orange"onclick="appendOperador('3x')">Triplo</button>
+                <button class="orange"onclick="appendOperador('4x')">quadruplo</button>
+                <button class="orange"onclick="appendOperador('2^')">Quadrado</button>
+                <button class="orange"onclick="appendOperador('3^')">Cubo</button>
+                <button class="orange"onclick="appendOperador('4^')">Quarta potência</button>
+                <button class="orange"onclick="appendOperador('5^')">Quinta potência</button>
+                <button class="orange"onclick="appendOperador('6^')">Sexta potência</button>
+                <button class="orange"onclick="appendOperador('∆')">Bhaskara</button>
+                <button class="orange"onclick="appendOperador('4/')">Média</button>
+            </div>
+        <div>
+        
+    </main>
+</body>
+<script>
+    let display= document.getElementById("display")
+    let currentInput=""
+    let reserva=""
+    let current_Operant=""
+    let lista = []
+    let media=0
+    let c=0
+    let d=0
+    function letdisplay(){
+        currentInput=""
+        display.textContent=currentInput;
+    }
+    function appendNumber(value){
+        currentInput+= value
+        display.textContent=currentInput
+    }
+    function appendOperador(operador){
+    current_Operant = operador
+}
+
+function calculate(){
+    try{    
+        if (current_Operant === "2x"){
+            currentInput = currentInput * 2
+        }
+        else if (current_Operant === "3x"){
+            currentInput = currentInput * 3
+        }
+        else if (current_Operant === "4x"){
+            currentInput = currentInput * 4
+        }
+        else if (current_Operant === "2^"){
+            currentInput = currentInput ** 2
+        }
+        else if (current_Operant === "3^"){
+            currentInput = currentInput ** 3
+        }
+        else if (current_Operant === "4^"){
+            currentInput = currentInput ** 4
+        }
+        else if (current_Operant === "5^"){
+            currentInput = currentInput ** 5
+        }
+        else if (current_Operant === "6^"){
+            currentInput = currentInput ** 6
+        }
+        else if(current_Operant==="∆"){
+            lista+= Number(currentInput)
+            d += 1
+            currentInput = ""
+            display.textContent = currentInput;
+
+            if(d === 3){
+                x1= (-lista[1]+Math.sqrt(lista[1]*lista[1]-4*lista[0]*lista[2]))/2*lista[0]
+                x2= (-lista[1]+Math.sqrt(lista[1]*lista[1]-4*lista[0]*lista[2]))/2*lista[0]
+                currentInput = x1, x2
+                d = 0
+                lista.length = 0
+                display.textContent = currentInput
+            }
+        }
+        else if(current_Operant==="4/"){
+            media += Number(currentInput)   // converte para número
+            c += 1
+            currentInput = ""
+            display.textContent = currentInput;
+
+            if(c === 4){
+                currentInput = media / 4
+                c = 0
+                media = 0
+                display.textContent = currentInput
+            }
+        }
+
+        display.textContent = currentInput
+    }
+    catch(error){
+        display.textContent="Erro"
+        currentInput=""
+    }
+}
+        
+</script>
+</html>
