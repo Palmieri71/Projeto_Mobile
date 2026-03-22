@@ -5,39 +5,208 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        .Letreiro{
-            margin: auto;
-            margin-left: 24px;
+        .container{
+            
+            top:10px;
+            margin-left: 200px;
+            width: 1000px;
+            justify-content: space-between;
+            
+
+        }
+        .Letreiro, .produto {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr; 
+            align-items: center;
+        }
+
+        .info-produto {
             display: flex;
-            gap: 100px;
+            align-items: center;
+            gap: 3px;
+        }
+
+        /* só pra melhorar visual */
+        .Letreiro {
+            font-weight: bold;
+            margin-bottom: 5px;
+            top: 100px;
+        }
+        .produto article {
+            margin-left: 12px;
+        }
+
+        .produto {
+            margin-bottom: 7px;
+        }
+        
+        input[type="text"] {
+            width: 40px;
+            padding: 5px;
+            text-align: center;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 15px;
+        }
+        input[type="text"] :disabled {
+            width: 40px;
+            padding: 5px;
+            text-align: center;
+            border-radius: 5px;
+            margin-left: 15px;
+        }
+        input[type="checkbox"]{
+            cursor: pointer;
+        }
+        .layout{
+            display: flex;
+            align-items: flex-start;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="Letreiro">
-            <label>Produto</label>
-            <label> Valor em R$</label>
-            <label> Quantidade</label>
+    <div class="layout">
+        
+        <div class="container">
+            <div class="Letreiro">Controle de Vendas:</div>
+            <div class="Letreiro">
+                <label>Produto:</label>
+                <label> Valor em R$:</label>
+                <label> Quantidade:</label>
+            </div>
+            <div class="produto">
+                <div class="info-produto">
+                    <input type="checkbox" id="option1" name="option">
+                    <label for="option1">GTA VI</label>
+                </div>    
+                    <article>R$299.90</article>
+                    <input type="text" id="1" disabled>
+            </div>
+
+            <div class="produto">
+                <div class="info-produto">
+                    <input type="checkbox" id="option2" name="option">
+                    <label for="option2">FIFA 24</label>
+                </div>    
+                <article>R$199.90</article>
+                <input type="text" id="2" disabled>   
+            </div>
+
+            <div class="produto">
+                <div class="info-produto">
+                    <input type="checkbox" id="option3" name="option">
+                    <label for="option3">Minecraft</label>
+                </div>    
+                <article>R$99.90</article>
+                <input type="text" id="3" disabled>   
+            </div>
+
+            <div class="produto">
+                <div class="info-produto">
+                    <input type="checkbox" id="option4" name="option">
+                    <label for="option4">Red Dead Redemption 2</label>
+                </div>    
+                <article>R$199.90</article>
+                <input type="text" id="4" disabled>   
+            </div>
+
+            <div class="produto">
+                <div class="info-produto">
+                    <input type="checkbox" id="option5" name="option">
+                    <label for="option5">The Witcher 3</label>
+                </div>    
+                <article>R$79.99</article>
+                <input type="text" id="5" disabled>   
+            </div>
+
+            <div class="produto">
+                <div class="info-produto">
+                    <input type="checkbox" id="option6" name="option">
+                    <label for="option6">Cyberpunk 2077</label>
+                </div>    
+                <article>R$199.90</article>
+                <input type="text" id="6" disabled>   
+            </div>
+
+            <div class="produto">
+                <div class="info-produto">
+                    <input type="checkbox" id="option7" name="option">
+                    <label for="option7">God of War</label>
+                </div>    
+                <article>R$199.90</article>
+                <input type="text" id="7" disabled>   
+            </div>
+
+            <div class="produto">
+                <div class="info-produto">
+                    <input type="checkbox" id="option8" name="option">
+                    <label for="option8">Resident Evil 4 (2023)</label>
+                </div>    
+                <article>R$199.90</article>
+                <input type="text" id="8" disabled>   
+            </div>
+
+            <div class="produto">
+                <div class="info-produto">
+                    <input type="checkbox" id="option9" name="option">
+                    <label for="option9">LEGO Batman: Legacy of the Dark Knight</label>
+                </div>    
+                <article>R$149.90</article>
+                <input type="text" id="9" disabled>   
+            </div>
+
+            <div class="produto">
+                <div class="info-produto">
+                    <input type="checkbox" id="option10" name="option">
+                    <label for="option10">Hollow Knight</label>
+                </div>    
+                <article>R$46.99</article>
+                <input type="text" id="10" disabled>   
+            </div>
+
+            <div class="produto">
+                <div class="info-produto">
+                    <input type="checkbox" id="option11" name="option">
+                    <label for="option11">Cuphead</label>
+                </div>    
+                <article>R$36.99</article>
+                <input type="text" id="11" disabled>   
+            </div>
+
+            <div class="produto">
+                <div class="info-produto">
+                    <input type="checkbox" id="option12" name="option">
+                    <label for="option12">Elden Ring</label>
+                </div>    
+                <article>R$229.90</article>
+                <input type="text" id="12" disabled>   
+            </div>
         </div>
-        <div class="produto">
-            <input type="checkbox" id="option1" name="option" value="value1">
-            <label for="option1">Camiseta Regata</label>
-        </div>
-        <div class="produto"></div>
-        <div class="produto"></div>
-        <div class="produto"></div>
-        <div class="produto"></div>
-        <div class="produto"></div>
-        <div class="produto"></div>
-        <div class="produto"></div>
-        <div class="produto"></div>
-        <div class="produto"></div>
-        <div class="produto"></div>
-        <div class="produto"></div>
+        <aside>
+            <article class="Letreiro">Forma de Pagamento</article>
+           
+        </aside>
     </div>
 </body>
 <script>
-
+    const produtos = document.querySelectorAll('.produto');
+    let total=0
+    let parcelamento=0
+    produtos.forEach(produto => {
+        const checkbox = produto.querySelector('input[type="checkbox"]');
+        const input = produto.querySelector('input[type="text"]');
+        checkbox.addEventListener('change', () => {
+            if (checkbox.checked) {
+                input.disabled = false;
+                input.focus(); // já deixa pronto pra digitar
+            } else {
+                input.disabled = true;
+                input.value = ""; // limpa o campo
+            }
+        });
+    });
+    function calcular(){
+       
+    }
 </script>
 </html>
