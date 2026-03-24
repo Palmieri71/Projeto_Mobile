@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        *{
+            font-family: "Poppins", sans-serif;
+        }
         .container{
             
             top:10px;
@@ -16,7 +20,7 @@
         }
         .Letreiro, .produto {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr; 
+            grid-template-columns: 2fr 1fr 1fr; 
             align-items: center;
         }
 
@@ -48,8 +52,9 @@
             cursor: pointer;
             margin-left: 15px;
         }
-        input[type="text"] :disabled {
+        input[type="text"]:disabled {
             width: 40px;
+            cursor: no-drop;
             padding: 5px;
             text-align: center;
             border-radius: 5px;
@@ -61,6 +66,9 @@
         .layout{
             display: flex;
             align-items: flex-start;
+        }
+        .parcelas{
+            display: none;
         }
     </style>
 </head>
@@ -183,30 +191,93 @@
             </div>
         </div>
         <aside>
-            <article class="Letreiro">Forma de Pagamento</article>
-           
+            <article class="container-2">
+                <article class="Letreiro">Forma de Pagamento</article>
+                <div class="caixa de Pagamento">
+                    <div class="forma_pagamento">
+                        <form id="14">
+                            <input type="radio" name="opcao" value="1"> Á vista<br>
+                            <input type="radio" name="opcao" value="2"> Parcelado<br>
+                        </form>
+                        <select class="parcelas" id="13">
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                        <button class="enviar" onclick="calcular()">Calcular</button>
+                    </div>
+                </div>
+                <div class="display" id="display">
+                </div>
+            </article>
         </aside>
     </div>
 </body>
 <script>
     const produtos = document.querySelectorAll('.produto');
+    let display= document.getElementById("display")
     let total=0
-    let parcelamento=0
+    let forma_pagamento=document.querySelectorAll('input[name="opcao"]');
+    let parcelamento= document.getElementById("13")
     produtos.forEach(produto => {
         const checkbox = produto.querySelector('input[type="checkbox"]');
         const input = produto.querySelector('input[type="text"]');
         checkbox.addEventListener('change', () => {
             if (checkbox.checked) {
                 input.disabled = false;
-                input.focus(); // já deixa pronto pra digitar
+                input.focus(); 
             } else {
                 input.disabled = true;
-                input.value = ""; // limpa o campo
+                input.value = "";
             }
         });
     });
-    function calcular(){
-       
+    if(forma_pagamento==2){
+        parcelamento.style.display = "inline";
     }
+    forma_pagamento.forEach(radio => {
+        radio.addEventListener("change", () => {
+            if (radio.value === "2" && radio.checked) {
+                parcelamento.style.display = "inline";
+            }
+            else if(radio.value==1){
+                parcelamento.style.display = "none";
+            }
+        });
+    });
+    function calcular() {
+        let total = 0;
+
+        produtos.forEach(produto => {
+            const checkbox = produto.querySelector('input[type="checkbox"]');
+            const input = produto.querySelector('input[type="text"]');
+            const preco = produto.querySelector('article').textContent;
+
+            if (checkbox.checked && input.value !== "") {
+                let quantidade = parseInt(input.value);
+                let valor = parseFloat(preco.replace("R$", "").replace(",", "."));
+
+                total += quantidade * valor;
+            }
+        });
+        let forma = document.querySelector('input[name="opcao"]:checked');
+
+        if (!forma) {
+            display.innerHTML = "Escolha uma forma de pagamento!";
+            return;
+        }
+
+        if (forma.value == "1") {
+            display.innerHTML = "Total: R$ " + total.toFixed(2);
+        } 
+        else if (forma.value == "2") {
+            let parcelas = parcelamento.value;
+            let valorParcela = total / parcelas;
+
+            display.innerHTML = `Total: ${parcelas}x de R$ ${valorParcela.toFixed(2)}`;
+        }
+    }
+
 </script>
 </html>
