@@ -9,14 +9,25 @@
         *{
             font-family: "Poppins", sans-serif;
         }
+        body{
+            background-color: #000000;
+        }
         .container{
-            
-            top:10px;
+            top: 20px;
             margin-left: 200px;
             width: 1000px;
             justify-content: space-between;
-            
-
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            background-color:blueviolet ;
+            border-radius: 10px;
+        }
+        .container-2{
+            border-top: 100px;
+            width:400px;
+            border-radius: 10px;
+            margin-left: 100px;
+            background-color:blueviolet ;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
         }
         .Letreiro, .produto {
             display: grid;
@@ -70,6 +81,14 @@
         .parcelas{
             display: none;
         }
+        .caixa-de-Pagamento{
+            margin-left: 5px;
+            display: grid;
+        }
+        .enviar{
+            border-radius: 10px;
+        }
+
     </style>
 </head>
 <body>
@@ -193,7 +212,7 @@
         <aside>
             <article class="container-2">
                 <article class="Letreiro">Forma de Pagamento</article>
-                <div class="caixa de Pagamento">
+                <div class="caixa-de-Pagamento">
                     <div class="forma_pagamento">
                         <form id="14">
                             <input type="radio" name="opcao" value="1"> Á vista<br>
@@ -206,9 +225,8 @@
                             <option value="5">5</option>
                         </select>
                         <button class="enviar" onclick="calcular()">Calcular</button>
+                        <div class="display" id="display"></div>
                     </div>
-                </div>
-                <div class="display" id="display">
                 </div>
             </article>
         </aside>
@@ -264,18 +282,25 @@
         let forma = document.querySelector('input[name="opcao"]:checked');
 
         if (!forma) {
-            display.innerHTML = "Escolha uma forma de pagamento!";
+            display.innerHTML = "Escolha uma forma de pagamento!"
             return;
         }
 
         if (forma.value == "1") {
-            display.innerHTML = "Total: R$ " + total.toFixed(2);
+            let final= total-total/100*8.5;
+            display.innerHTML = "Total: R$ " + final.toFixed(2);
         } 
         else if (forma.value == "2") {
             let parcelas = parcelamento.value;
-            let valorParcela = total / parcelas;
-
-            display.innerHTML = `Total: ${parcelas}x de R$ ${valorParcela.toFixed(2)}`;
+            let total_parcelado=total+ total/100*6
+            let valorParcela = total_parcelado / parcelas+ parcelas*10;
+            if (valorParcela<75){
+                display.innerHTML ="Não é possivel parcelar, \n o valor mínimo da parcela é R$75 e a sua parcela deu R$:"+valorParcela.toFixed(2);
+            }
+            else if(valorParcela>=75){
+                display.innerHTML = `Total: R$ ${total_parcelado.toFixed(2)} <br> ${parcelas}x de R$ ${valorParcela.toFixed(2)}`;
+            }
+            
         }
     }
 
