@@ -14,13 +14,28 @@
         <button class="Modal-cadastro">Cadastrar Alunos</button>
     </div>
     <div class="estatisticas">
-      <div class="estatistica"><h4><i class="fa-solid fa-users total"></i> Total de alunos</h4></div>
-      <div class="estatistica"><h4><i class="fa-solid fa-chart-column media"></i> Média da Turma </h4> </div>
-      <div class="estatistica"><h4><i class="fa-solid fa-check aprovado"></i> Aprovados</h4></div>
-      <div class="estatistica"><h4><i class="fa-solid fa-xmark reprovado"></i> Reprovados</h4></div>
+      <div class="estatistica">
+        <h4><i class="fa-solid fa-users total-alunos"></i> Total de alunos</h4>
+        <div class="display total">0</div>
+      </div>
+      <div class="estatistica">
+        <h4><i class="fa-solid fa-chart-column media"></i> Média da Turma </h4> 
+        <div class="display media-turma">0</div>
+      </div>
+      <div class="estatistica">
+        <h4><i class="fa-solid fa-check aprovado"></i> Aprovados</h4>
+        <div class="display aprovados">0</div>
+      </div>
+      <div class="estatistica">
+        <h4><i class="fa-solid fa-xmark reprovado"></i> Reprovados</h4>
+        <div class="display reprovados">0</div>
+      </div>
     </div>
     <div class="Lista-Alunos">
-      
+        <i class="fa-solid fa-graduation-cap cap"></i>
+        <p>Nenhum Aluno Cadastrado</p>
+        <p>Adicione o primeiro aluno do sistema</p>
+        <button class="Modal-cadastro">+adicionar aluno</button>
     </div>
 </div>
 
@@ -31,5 +46,10 @@
     let aluno_id=document.getElementById(1)
     let aluno_nome=document.getElementById(2)
     let aluno_nota=document.getElementById(3)
+    const Aprovados= document.querySelector("display-aprovados").value
+    const Reprovados= document.querySelector("display-reprovados").value
+    const Media= document.querySelector("display-media-turma").value
+    const Total_alunos= document.querySelector("display-total").value
+    const container = document.getElementById("Lista-Alunos");
 </script>
 </html>
