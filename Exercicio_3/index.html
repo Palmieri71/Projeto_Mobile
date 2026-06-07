@@ -11,7 +11,7 @@
 <div class="container">
     <div class="Titulo-container">
         <h1 class="text"><i class="fa-solid fa-graduation-cap cap"></i> Sistema Escolar</h1>
-        <button class="Modal-cadastro">Cadastrar Alunos</button>
+        <button class="Modal-cadastro" data-modal="modal-1">Cadastrar Alunos</button>
     </div>
     <div class="estatisticas">
       <div class="estatistica">
@@ -35,21 +35,156 @@
         <i class="fa-solid fa-graduation-cap cap"></i>
         <p>Nenhum Aluno Cadastrado</p>
         <p>Adicione o primeiro aluno do sistema</p>
-        <button class="Modal-cadastro">+adicionar aluno</button>
+        <button class="Modal-cadastro" data-modal="modal-1">+adicionar aluno</button>
     </div>
+    <dialog id="modal-1">
+      <div class="titulo-modal">
+        <p>Cadastro do Aluno</p>
+        <button class="closeModal" data-modal="modal-1">X</button>
+      </div>
+      <form>
+        <div class="modal-inputs">
+          <label>Nome do Aluno</label>
+          <input type="text" id="nome" required>
+        </div>
+
+        <div class="modal-inputs">
+          <label>Idade</label>
+          <input type="text" id="idade" required>
+        </div>
+
+        <div class="modal-inputs">
+          <label>Nota</label>
+          <input type="text" id="nota" required>
+        </div>
+
+        <div class="modal-inputs">
+          <label>Email</label>
+          <input type="text" id="email" required>
+        </div>
+
+        <div class="modal-inputs">
+          <label>Celular</label>
+          <input type="text" id="celular" required>
+        </div>
+      </form>
+      <button type="button" class="btn-cadastrar" onclick="submit()">Cadastrar</button>
+    </dialog>
+    <dialog id="modal_aluno">
+
+    </dialog>
 </div>
 
 </body>
 <script>
-    let alunos=[[]]
-    let aluno_info=[]
-    let aluno_id=document.getElementById(1)
-    let aluno_nome=document.getElementById(2)
-    let aluno_nota=document.getElementById(3)
-    const Aprovados= document.querySelector("display-aprovados").value
-    const Reprovados= document.querySelector("display-reprovados").value
-    const Media= document.querySelector("display-media-turma").value
-    const Total_alunos= document.querySelector("display-total").value
-    const container = document.getElementById("Lista-Alunos");
+    let alunos=[]
+    const Aprovados= document.querySelector(".aprovados")
+    const Reprovados= document.querySelector(".reprovados")
+    const Media= document.querySelector(".media-turma")
+    const Total_alunos= document.querySelector(".total")
+    const container = document.querySelector(".Lista-Alunos");
+    const openModal = document.querySelectorAll(".Modal-cadastro");
+    const closeModal=document.querySelectorAll(".closeModal")
+    openModal.forEach(button => {
+      button.addEventListener("click", () => {
+        const modalId = button.getAttribute("data-modal");
+        const modal = document.getElementById(modalId);
+        modal.showModal();
+      });
+    });
+    closeModal.forEach(button => {
+      button.addEventListener("click", () => {
+        const modalId = button.getAttribute("data-modal");
+        const modal = document.getElementById(modalId);
+        modal.close();
+      });
+    });
+
+    function submit() {
+      let nome = document.getElementById("nome").value;
+      let idade = document.getElementById("idade").value;
+      let nota = document.getElementById("nota").value;
+      let email = document.getElementById("email").value;
+      let celular = document.getElementById("celular").value;
+
+      const aluno = {
+        nome,
+        idade,
+        nota,
+        email,
+        celular
+      };
+
+      alunos.push(aluno);
+      alunos.nota
+      renderAlunos()
+      alert("Aluno cadastrado!");
+      
+    }
+    function renderAlunos() {
+      container.innerHTML = "";
+
+      alunos.forEach((aluno, index) => {
+        const card = document.createElement("div");
+        card.classList.add("card-aluno");
+        container.classList.add("turma-completa")
+        card.innerHTML = `
+          <h3>${aluno.nome}</h3>
+          <p>Nota: ${aluno.nota}</p>
+          <button class="modal-aluno" onclick="verDetalhes(${index})">Ver detalhes</button>
+          <button onclick="remover_alunos(${index})">Remover aluno</button>
+        `;
+
+        container.appendChild(card);
+      });
+        let media_alunos = 0
+        let Aprovados_number = 0
+        let Reprovados_number = 0
+
+        for (let i = 0; i < alunos.length; i++) {
+          const nota = Number(alunos[i].nota)
+
+          media_alunos += nota
+
+          if (nota >= 7) {
+            Aprovados_number++
+          } else {
+            Reprovados_number++
+          }
+        }
+
+        Total_alunos.innerHTML = alunos.length
+        Media.innerHTML = alunos.length ? (media_alunos / alunos.length).toFixed(1) : 0
+        Aprovados.innerHTML = Aprovados_number
+        Reprovados.innerHTML = Reprovados_number
+      }
+    function verDetalhes(index){
+      const aluno = alunos[index];
+
+      const modal = document.getElementById("modal_aluno");
+
+      modal.innerHTML = `
+        <div class="titulo-aluno">
+          <h1>Detalhes do Aluno</h1>
+          <button class="closeModal" onclick="fecharDetalhes()" >X</button>
+          </div>
+        <p>Nome: ${aluno.nome}</p>
+        <p>Nota: ${aluno.nota}</p>
+        <p>Idade: ${aluno.idade}</p>
+        <p>Email: ${aluno.email}</p>
+        <p>Celular: ${aluno.celular}</p>
+      `;
+
+      modal.showModal();
+    }
+    function fecharDetalhes() {
+      document.getElementById("modal_aluno").close()
+    }
+    function remover_alunos(index) {
+      alunos.splice(index, 1);
+      renderAlunos();
+    }
+
+
 </script>
 </html>
